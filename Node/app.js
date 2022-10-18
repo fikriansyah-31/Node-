@@ -1,9 +1,32 @@
-const http = require('http');
+// const http = require('http');
 
-const routes = require('../Node/routes');
+const express = require('express');
 
-console.log(routes.someText);
+const app = express();
 
-const server = http.createServer(routes.handler);
+// app.use((req, res, next) =>{
+//     console.log('In the Middleware');
+//     next(); // Allows the request to continue to the next middwares
+// });
 
-server.listen(3000)
+// app.use((req, res, next) =>{
+//     console.log('In Another Level');
+//     // ...
+// });
+
+
+app.use('/users',(req, res, next) =>{
+    console.log('/users Middleware');
+    res.send('<p>The Middleware thet handles just /users</p>')
+    // next(); // Allows the request to continue to the next middwares
+});
+
+app.use('/',(req, res, next) =>{
+    console.log('/Middleware');
+    res.send('<p>The Middleware thet handles just</p>')
+    // next(); // Allows the request to continue to the next middwares
+});
+
+// const server = http.createServer(app);
+
+app.listen(3000)
